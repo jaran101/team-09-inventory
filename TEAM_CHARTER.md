@@ -6,7 +6,7 @@
 |---|---|---|
 | จรัลชัย ต้นจำปา  | jran101            | Product Owner |
 | ภูมิพัฒน์ ภิรมย์ราช | Phomiphat Piromrach             | Scrum Master / Developer |
-| ธนกฤต อินทร์ผึ้ง  | ...             | Developer |
+| ธนกฤต อินทร์ผึ้ง  |Tanakit_ip           | Developer |
 
 ## Branching Strategy
 
