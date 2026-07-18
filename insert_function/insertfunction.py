@@ -1,28 +1,47 @@
-inventory = []
-def insert_product():
-  while True:
-      code = input("รหัสสินค้า : ")
-      is_duplicate = False
-      for item in inventory:
-          if item['code'] == code:
-              is_duplicate = True
-              break
+lass InventoryManager:
+    def __init__(self):
+        # ข้อมูลถูกเก็บไว้ใน object นี้
+        self.inventory = []
 
-      if is_duplicate:
-          print("มีสินค้าอยู่แล้ว")
-      else:
-          name = input("ชื่อสินค้า : ")
+    def add_product(self, code, name, quantity):
+        # ตรวจสอบความซ้ำซ้อน
+        for item in self.inventory:
+            if item['code'] == code:
+                return False, "มีสินค้าอยู่แล้ว"
+        # สร้าง ID อัตโนมัติ
+        product_id = len(self.inventory) + 1
+        
+        # เพิ่มข้อมูล
+        new_item = {
+            "id": product_id,
+            "code": code,
+            "name": name,
+            "quantity": quantity
+        }
+        self.inventory.append(new_item)
+        return True, "เพิ่มสินค้าสำเร็จ"
 
-          quantity = int(input("จำนวนว : "))
+    def get_all_products(self):
+        # คืนค่ารายการสินค้าทั้งหมดเพื่อนำไปแสดงผล
+        return self.inventory
 
-          product_id = len(inventory) + 1
+manager = InventoryManager()
 
-          new_item = {
-              "id": product_id,
-              "code": code,
-              "name": name,
-              "quantity": quantity
-          }
-          inventory.append(new_item)
-          print("เพิ่มสินค้าสำเร็จ")
-          break
+while True:
+    code = input("รหัสสินค้า : ")
+    name = input("ชื่อสินค้า : ")
+    
+    # แยกส่วนการรับค่าจำนวนมาไว้ในลูปย่อย เพื่อดักจับ Error
+    while True:
+        try:
+            quantity = int(input("จำนวน : "))
+            break # ถ้าใส่ตัวเลขถูกต้อง ให้หลุดจากลูปย่อยนี้
+        except ValueError:
+            print("กรุณากรอกจำนวนเป็นตัวเลขเท่านั้น (เช่น 1, 2, 3)")
+    
+    # ส่งค่าไปยัง manager
+    success, message = manager.add_product(code, name, quantity)
+    print(message)
+    if not success:
+      continue
+    break
