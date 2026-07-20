@@ -1,3 +1,5 @@
+# ชื่อไฟล์: insertfunction.py
+
 class InventoryManager:
     def __init__(self):
         self.inventory = []
