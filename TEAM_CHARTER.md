@@ -4,9 +4,9 @@
 
 | ชื่อ | GitHub Username | บทบาท |
 |---|---|---|
-| จรัลชัย ต้นจำปา  | jran101            | Product Owner |
-| ภูมิพัฒน์ ภิรมย์ราช | Phomiphat Piromrach             | Scrum Master / Developer |
-| ธนกฤต อินทร์ผึ้ง  |Tanakit_ip           | Developer |
+| จรัลชัย ต้นจำปา  | jran101             | Product Owner |
+| ภูมิพัฒน์ ภิรมย์ราช | Phomiphat Piromrach               | Scrum Master / Developer |
+| ธนกฤต อินทร์ผึ้ง  | Tanakit_ip            | Developer |
 
 ## Branching Strategy
 
@@ -17,7 +17,7 @@
 
 ## Sprint Goal (Sprint 1)
 
-(กรอกหลังขั้นที่ 5)
+sprint นี้ทีมจะส่งมอบ US-01 และ US-02 ที่รันได้จริงและผ่าน acceptance criteria ครบ
 
 ## AI Usage Policy
 
