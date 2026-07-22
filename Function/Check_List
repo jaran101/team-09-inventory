@@ -1,0 +1,28 @@
+# 1. ฟังก์ชันเพิ่มสินค้า
+def add_product(stock, product_id, product_name, quantity):
+    # ตรวจสอบว่ามีสินค้าอยู่แล้วหรือไม่
+    if product_id in stock:
+        print("มีสินค้าในระบบอยู่แล้ว")
+        return False
+
+    # เพิ่มสินค้าใหม่
+    stock[product_id] = {"name": product_name, "quantity": quantity}
+
+    print(f"ชื่อสินค้า : {product_name}")
+    print(f"รหัสสินค้า : {product_id}")
+    print(f"จำนวน : {quantity}")
+    return True
+
+
+# 2. ฟังก์ชันแสดงรายการสินค้า
+def list_products(stock):
+    # ตรวจสอบว่ามีสินค้าในระบบหรือไม่
+    if not stock:
+        print("ยังไม่มีสินค้าในระบบ")
+        return
+
+    # แสดงรายการสินค้า
+    for product_id, info in stock.items():
+        print(f"ชื่อสินค้า: {info['name']}")
+        print(f"รหัสสินค้า: {product_id}")
+        print(f"จำนวนคงเหลือ: {info['quantity']}")
