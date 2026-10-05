@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="login-mockup" name="00 - Login">
-        <mxGraphModel dx="408" dy="303" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="700" math="0" shadow="0">
+        <mxGraphModel dx="648" dy="412" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="700" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -34,7 +34,7 @@
                 <mxCell id="lg-email-input" value="somkiat@company.com" style="rounded=8;whiteSpace=wrap;html=1;fillColor=#F9FAFB;strokeColor=#D1D5DB;fontColor=#111827;fontSize=14;fontFamily=Inter;align=left;spacingLeft=14;" parent="1" vertex="1">
                     <mxGeometry x="464" y="328" width="472" height="44" as="geometry"/>
                 </mxCell>
-                <mxCell id="lg-email-hint" value="(ตัวอย่าง: user@company.com)" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#9CA3AF;fontSize=11;fontFamily=Inter;" parent="1" vertex="1">
+                <mxCell id="lg-email-hint" value="(ตัวอย่าง: user@company.com)" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#4B5563;fontSize=12;fontFamily=Inter;" parent="1" vertex="1">
                     <mxGeometry x="464" y="374" width="230" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="lg-pw-label" value="* รหัสผ่าน (Password)" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#374151;fontSize=13;fontFamily=Inter;fontStyle=1;" parent="1" vertex="1">
@@ -78,8 +78,8 @@
                 <mxCell id="nav-report" value="รายงาน" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#BFDBFE;fontSize=13;fontFamily=Inter;" parent="1" vertex="1">
                     <mxGeometry x="485" y="12" width="70" height="32" as="geometry"/>
                 </mxCell>
-                <mxCell id="nav-bell" value="🔔 3" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#FFFFFF;fontSize=14;fontFamily=Inter;" parent="1" vertex="1">
-                    <mxGeometry x="1170" y="12" width="50" height="32" as="geometry"/>
+                <mxCell id="nav-bell" value="🔔 แจ้งเตือน 3" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#FFFFFF;fontSize=13;fontFamily=Inter;" parent="1" vertex="1">
+                    <mxGeometry x="1150" y="12" width="70" height="32" as="geometry"/>
                 </mxCell>
                 <mxCell id="nav-user" value="👤 คุณสมเกียรติ (Manager)" style="rounded=16;whiteSpace=wrap;html=1;fillColor=#15317E;strokeColor=none;fontColor=#FFFFFF;fontSize=12;fontFamily=Inter;spacingLeft=4;spacingRight=8;" parent="1" vertex="1">
                     <mxGeometry x="1226" y="10" width="164" height="36" as="geometry"/>
@@ -144,7 +144,7 @@
                 <mxCell id="search-bar-bg" value="" style="rounded=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#E5E7EB;shadow=1;" parent="1" vertex="1">
                     <mxGeometry x="40" y="302" width="1320" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="search-input" value="🔍 ค้นหาสินค้า / SKU..." style="rounded=6;whiteSpace=wrap;html=1;fillColor=#F9FAFB;strokeColor=#D1D5DB;fontColor=#9CA3AF;fontSize=13;fontFamily=Inter;align=left;spacingLeft=12;" parent="1" vertex="1">
+                <mxCell id="search-input" value="🔍 ค้นหาสินค้า / SKU..." style="rounded=6;whiteSpace=wrap;html=1;fillColor=#F9FAFB;strokeColor=#D1D5DB;fontColor=#4B5563;fontSize=13;fontFamily=Inter;align=left;spacingLeft=12;" parent="1" vertex="1">
                     <mxGeometry x="56" y="310" width="360" height="34" as="geometry"/>
                 </mxCell>
                 <mxCell id="filter-category" value="หมวดหมู่: ทั้งหมด ▾" style="rounded=6;whiteSpace=wrap;html=1;fillColor=#F9FAFB;strokeColor=#D1D5DB;fontColor=#374151;fontSize=13;fontFamily=Inter;align=left;spacingLeft=12;" parent="1" vertex="1">
@@ -246,7 +246,7 @@
                 <mxCell id="pag-text" value="แสดง 1-3 จาก 12 รายการ" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#6B7280;fontSize=12;fontFamily=Inter;" parent="1" vertex="1">
                     <mxGeometry x="56" y="572" width="200" height="28" as="geometry"/>
                 </mxCell>
-                <mxCell id="pag-prev" value="‹ ก่อนหน้า" style="rounded=6;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D1D5DB;fontColor=#9CA3AF;fontSize=12;fontFamily=Inter;" parent="1" vertex="1">
+                <mxCell id="pag-prev" value="‹ ก่อนหน้า" style="rounded=6;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D1D5DB;fontColor=#6B7280;fontSize=12;fontFamily=Inter;" parent="1" vertex="1">
                     <mxGeometry x="1080" y="570" width="90" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="pag-1" value="1" style="rounded=6;whiteSpace=wrap;html=1;fillColor=#1E40AF;strokeColor=none;fontColor=#FFFFFF;fontSize=12;fontStyle=1;fontFamily=Inter;" parent="1" vertex="1">
@@ -356,7 +356,7 @@
                 <mxCell id="ap-f8-input" value="50" style="rounded=6;whiteSpace=wrap;html=1;fillColor=#F9FAFB;strokeColor=#D1D5DB;fontColor=#111827;fontSize=13;fontFamily=Inter;align=left;spacingLeft=12;" parent="1" vertex="1">
                     <mxGeometry x="64" y="630" width="600" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="ap-f8-hint" value="(จำนวนชิ้น/ม้วนในคลังปัจจุบัน)" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#9CA3AF;fontSize=11;fontFamily=Inter;" parent="1" vertex="1">
+                <mxCell id="ap-f8-hint" value="(จำนวนชิ้น/ม้วนในคลังปัจจุบัน)" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#4B5563;fontSize=12;fontFamily=Inter;" parent="1" vertex="1">
                     <mxGeometry x="64" y="672" width="260" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="ap-f9-label" value="* จุดเตือนสั่งซื้อเติม (Reorder Point)" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#374151;fontSize=13;fontFamily=Inter;fontStyle=1;" parent="1" vertex="1">
@@ -365,7 +365,7 @@
                 <mxCell id="ap-f9-input" value="10" style="rounded=6;whiteSpace=wrap;html=1;fillColor=#F9FAFB;strokeColor=#D1D5DB;fontColor=#111827;fontSize=13;fontFamily=Inter;align=left;spacingLeft=12;" parent="1" vertex="1">
                     <mxGeometry x="700" y="630" width="636" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="ap-f9-hint" value="(ระบบจะเตือนเมื่อสินค้าเหลือเท่านี้หรือน้อยกว่า)" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#9CA3AF;fontSize=11;fontFamily=Inter;" parent="1" vertex="1">
+                <mxCell id="ap-f9-hint" value="(ระบบจะเตือนเมื่อสินค้าเหลือเท่านี้หรือน้อยกว่า)" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#4B5563;fontSize=12;fontFamily=Inter;" parent="1" vertex="1">
                     <mxGeometry x="700" y="672" width="370" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="ap-f10-label" value="ตำแหน่งจัดเก็บในคลัง (Location / Bin)" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#374151;fontSize=13;fontFamily=Inter;" parent="1" vertex="1">
