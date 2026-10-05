@@ -19,7 +19,8 @@ def average_price(prices: list[float]) -> float:
     return sum(prices) / len(prices)
 
 
-def cheapest_n(prices: list, n: int) -> list:
-    """คืน n รายการที่ราคาถูกที่สุด เรียงจากถูกไปแพง"""
-    ordered = sorted(prices)
-    return ordered[1:n]
+def cheapest_n(prices: list[float], n: int) -> list[float]:
+    """คืนรายการราคาที่ถูกที่สุด n อันดับแรก"""
+    if not prices or n <= 0:
+        return []
+    return sorted(prices)[:n]
