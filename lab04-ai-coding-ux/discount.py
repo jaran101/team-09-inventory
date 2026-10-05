@@ -7,12 +7,9 @@ def apply_discount(price: float, percent: float) -> float:
     return price * (1 - percent / 100)
 
 
-def bulk_total(prices: list, discount_percent: float) -> float:
-    """รวมราคาหลายรายการแล้วลดส่วนลดรวมทีเดียว"""
-    total = 0
-    for p in prices:
-        total += p
-    return apply_discount(total, discount_percent)
+def bulk_total(prices: list[float], percent: float) -> float:
+    """คำนวณราคารวมของรายการสินค้าหลังหักส่วนลด"""
+    return sum(apply_discount(p, percent) for p in prices)
 
 
 def average_price(prices: list) -> float:
