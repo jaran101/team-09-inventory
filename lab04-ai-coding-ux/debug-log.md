@@ -1,0 +1,10 @@
+# บันทึกการ Debug (debug-log.md)
+
+## ขั้นที่ 2: สรุปตารางการวิเคราะห์ Root Cause ของแต่ละ Test Case
+
+| test ที่ไม่ผ่าน | traceback หรือ assertion ที่เห็น | สมมติฐาน root cause | วิธียืนยัน | การแก้ |
+| :--- | :--- | :--- | :--- | :--- |
+| `test_apply_discount_basic` | `AssertionError: assert 99.9 == 90.0` | โค้ดในฟังก์ชัน `apply_discount` มีสูตรคำนวณส่วนลดผิด โดยน่าจะหารด้วย `1000` แทนที่จะเป็น `100` ทำให้ลดราคาน้อยกว่าความเป็นจริง | เปิดดูซอร์สโค้ดใน `discount.py` บริเวณฟังก์ชัน `apply_discount` พบว่าใช้สูตร `price - (price * (discount / 1000))` จริง | แก้ตัวหารจาก `1000` เป็น `100` ในสูตรคำนวณส่วนลด (`price * (1 - discount / 100)`) |
+| `test_bulk_total` | `AssertionError: assert 299.9 == 270.0` | เกิดจาก Ripple Effect จากการที่ `bulk_total` ไปเรียกใช้งาน `apply_discount` ซึ่งยังมีบั๊กตัวหาร `1000` อยู่ | ตรวจสอบซอร์สโค้ด `bulk_total` พบว่ามีการเรียกใช้ `apply_discount` จริง และเมื่อแก้บั๊กใน `apply_discount` แล้วทดสอบรันซ้ำ พบว่าข้อนี้ผ่านทันที | แก้ไขบั๊กตัวหารในฟังก์ชัน `apply_discount` ให้ถูกต้อง ค่ารวมใน `bulk_total` จึงคำนวณได้ถูกต้องตาม |
+| `test_average_price_empty` | `ZeroDivisionError: division by zero` | ฟังก์ชัน `average_price` นำ `len(prices)` ไปเป็นตัวหารตรงๆ โดยไม่มี Guard Clause ตรวจสอบกรณีที่ลิสต์ว่าง (`prices = []`) | ดูโค้ดใน `discount.py` พบว่าเป็น `sum(prices) / len(prices)` เมื่อส่ง `[]` เข้ามา ตัวหารจึงกลายเป็น `0` ส่งผลให้โปรแกรม Crash | เพิ่ม Guard Clause เช็ก `if not prices:` ให้คืนค่า `0.0` กลับไปทันทีเมื่อลิสต์ว่าง |
+| `test_cheapest_n` | `AssertionError: assert [20.0] == [10.0, 20.0]` | ฟังก์ชัน `cheapest_n` มีการทำ Slicing/Loop หรือเรียงลำดับขอบเขตข้อมูลผิดพลาด (Off-by-one / Wrong Index) ทำให้ดึงข้อมูลไม่ครบตาม $n$ รายการ | ตรวจสอบฟังก์ชัน `cheapest_n` ใน `discount.py` พบว่ามีการจัดเรียงลำดับผิด และใช้ Slicing ดึงช่วงข้อมูลคลาดเคลื่อน (`[:n-1]`) | ปรับปรุงให้ใช้ `sorted(prices)[:n]` เพื่อเรียงลำดับราคาจากน้อยไปมากและคัดแยกเฉพาะ $n$ รายการแรก |
