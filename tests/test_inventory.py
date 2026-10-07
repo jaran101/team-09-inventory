@@ -63,17 +63,17 @@ def test_low_stock_items_empty_inventory():
 
 
 def test_low_stock_items_threshold_zero(service):
-    # 5. threshold เป็น 0 -> คืนเฉพาะสินค้าที่เหลือ <= 0
+    # 5. threshold ที่ส่งให้เมธอด low_stock_items เป็น 0 -> คืนเฉพาะสินค้าที่มี quantity <= 0
     inv_service, cat = service
-    inv_service.add_product(Product("P01", "Out of stock item", cat, 100, quantity=0, threshold=0))
-    inv_service.add_product(Product("P02", "In stock item", cat, 200, quantity=5, threshold=0))
+    inv_service.add_product(Product("P01", "Out of stock item", cat, 100, quantity=0, threshold=5))
+    inv_service.add_product(Product("P02", "In stock item", cat, 200, quantity=5, threshold=5))
     
     assert inv_service.low_stock_items(0) == ["Out of stock item"]
 
 
 def test_low_stock_items_negative_threshold(service):
-    # 6. threshold ติดลบ -> คืน list ว่าง
+    # 6. threshold ที่ส่งให้เมธอด low_stock_items ติดลบ -> คืน list ว่าง
     inv_service, cat = service
-    inv_service.add_product(Product("P01", "Item A", cat, 100, quantity=1, threshold=0))
+    inv_service.add_product(Product("P01", "Item A", cat, 100, quantity=1, threshold=5))
     
     assert inv_service.low_stock_items(-1) == []
