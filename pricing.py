@@ -1,6 +1,5 @@
 import datetime
 
-
 TAX = 0.07
 member_points = {}
 LOG = []
