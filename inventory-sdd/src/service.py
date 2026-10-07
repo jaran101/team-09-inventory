@@ -177,3 +177,13 @@ class InventoryService:
                 name = product.category.name
                 values[name] = values.get(name, Decimal(0)) + product.quantity * product.price_per_unit
         return values
+
+
+    def low_stock_items(self, threshold: int) -> list[str]:
+        """คืนค่ารายชื่อสินค้าที่มีจำนวนคงเหลือน้อยกว่าหรือเท่ากับ threshold โดยเรียงลำดับตามชื่อสินค้า (Alphabetical Order)"""
+        low_stock = [
+            p.name for p in self.products.values() 
+            if p.quantity <= threshold
+        ]
+        return sorted(low_stock)
+    
