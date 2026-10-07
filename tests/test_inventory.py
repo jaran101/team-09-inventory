@@ -77,3 +77,49 @@ def test_low_stock_items_negative_threshold(service):
     inv_service.add_product(Product("P01", "Item A", cat, 100, quantity=1, threshold=5))
     
     assert inv_service.low_stock_items(-1) == []
+
+def test_issue_stock_exact_quantity(service):
+    # 1. ค่าขอบ: จ่ายเท่ากับจำนวนที่มีอยู่ทั้งหมด (สต็อกต้องเหลือ 0 พอดี)
+    inv_service, cat = service
+    inv_service.add_product(Product("P01", "Laptop", cat, 20000, quantity=5, threshold=2))
+    
+    updated = inv_service.issue_stock("P01", 5)
+    assert updated.quantity == 0
+
+
+def test_issue_stock_zero_or_negative_quantity(service):
+    # 2. ค่าที่ไม่ควรรับ: จ่ายจำนวน 0 หรือ ติดลบ (ต้อง raise ValueError)
+    inv_service, cat = service
+    inv_service.add_product(Product("P01", "Laptop", cat, 20000, quantity=5, threshold=2))
+    
+    with pytest.raises(ValueError):
+        inv_service.issue_stock("P01", 0)
+        
+    with pytest.raises(ValueError):
+        inv_service.issue_stock("P01", -3)
+
+
+def test_issue_stock_exceeds_available_quantity(service):
+    # 3. เส้นทาง error: จ่ายเกินจำนวนสต็อกที่มี (ต้อง raise ValueError)
+    inv_service, cat = service
+    inv_service.add_product(Product("P01", "Laptop", cat, 20000, quantity=5, threshold=2))
+    
+    with pytest.raises(ValueError):
+        inv_service.issue_stock("P01", 10)
+
+
+def test_issue_stock_product_not_found(service):
+    # 4. เส้นทาง error: จ่ายสินค้าที่ไม่มีในคลัง (ต้อง raise Exception)
+    inv_service, _ = service
+    
+    with pytest.raises(Exception):
+        inv_service.issue_stock("NON_EXISTENT_ID", 1)
+
+
+def test_issue_stock_invalid_type(service):
+    # 5. ชนิดข้อมูล: ใส่จำนวนเป็น string หรือ float (ต้อง raise ValueError/TypeError)
+    inv_service, cat = service
+    inv_service.add_product(Product("P01", "Laptop", cat, 20000, quantity=5, threshold=2))
+    
+    with pytest.raises((ValueError, TypeError)):
+        inv_service.issue_stock("P01", "three")  # type: ignore
