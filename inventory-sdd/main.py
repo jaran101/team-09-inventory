@@ -20,11 +20,11 @@ def print_menu() -> None:
 
 def main() -> None:
     # 1. ตั้งค่า Notifiers ผ่าน Factory (รองรับทั้ง Email และ SMS)
-    email_notifier = NotifierFactory.create_notifier("email", "manager@company.com")
-    sms_notifier = NotifierFactory.create_notifier("sms", "081-234-5678")
+    email_notifier = NotifierFactory.create("email", "manager@company.com")
+    sms_notifier = NotifierFactory.create("sms", "081-234-5678")
     
     # 2. ฉีด Dependency เข้าสู่ InventoryService
-    service = InventoryService(notifiers=[email_notifier, sms_notifier])
+    service = InventoryService(observers=[email_notifier, sms_notifier])
 
     # 3. เตรียมข้อมูล Mock Data สำหรับเริ่มต้นใช้งาน
     cat_elec = Category(id="CAT01", name="อุปกรณ์ไฟฟ้า")
