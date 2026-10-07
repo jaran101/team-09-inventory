@@ -1,19 +1,42 @@
+import logging
 import uuid
-from typing import Dict, List, Union
+from typing import Dict, Iterable, List, Optional, Union
 from .models import Product, Category, StockTransaction, TransactionType
 from .notifiers import Notifier
 
+logger = logging.getLogger(__name__)
+
 
 class InventoryService:
-    """บริการจัดการสต็อกสินค้า คํานวณมูลค่า และส่งการแจ้งเตือน"""
+    """บริการจัดการสต็อกสินค้า คํานวณมูลค่า และส่งการแจ้งเตือน (Subject ของ Observer)"""
 
-    def __init__(self, notifiers: List[Notifier] = None) -> None:
-        """กําหนดค่าเริ่มต้นสําหรับบริการคลังสินค้าพร้อมรองรับ Dependency Injection"""
+    def __init__(self, observers: Optional[Iterable[Notifier]] = None) -> None:
+        """กําหนดค่าเริ่มต้นสําหรับบริการ รับ observer ผ่าน Dependency Injection"""
         self.products: Dict[str, Product] = {}
         self.categories: Dict[str, Category] = {}
         self.transactions: List[StockTransaction] = []
-        self.notifiers: List[Notifier] = notifiers if notifiers is not None else []
+        self._observers: List[Notifier] = list(observers) if observers else []
 
+    # ---------- Observer management ----------
+    def attach(self, observer: Notifier) -> None:
+        """ลงทะเบียน observer เพิ่ม (ไม่เพิ่มซ้ำ)"""
+        if observer not in self._observers:
+            self._observers.append(observer)
+
+    def detach(self, observer: Notifier) -> None:
+        """ยกเลิกการลงทะเบียน observer"""
+        if observer in self._observers:
+            self._observers.remove(observer)
+
+    def _notify_all(self, message: str) -> None:
+        """แจ้งทุก observer โดยไม่รู้ว่าเป็นช่องทางใด และ observer ตัวหนึ่งล้มไม่กระทบตัวอื่น"""
+        for observer in list(self._observers):
+            try:
+                observer.send(message)
+            except Exception:
+                logger.exception("observer %r ส่งแจ้งเตือนล้มเหลว", observer)
+
+    # ---------- Business logic (ไม่เปลี่ยนแปลง) ----------
     def add_category(self, category: Category) -> None:
         """เพิ่มหมวดหมู่สินค้าใหม่เข้าสู่ระบบ"""
         self.categories[category.id] = category
@@ -21,11 +44,6 @@ class InventoryService:
     def add_product(self, product: Product) -> None:
         """เพิ่มสินค้าใหม่เข้าสู่ระบบ"""
         self.products[product.id] = product
-
-    def _notify_all(self, message: str) -> None:
-        """ส่งข้อความไปยังผู้แจ้งเตือนทุกช่องทางในระบบ"""
-        for notifier in self.notifiers:
-            notifier.send(message)
 
     def receive_stock(self, product_id: str, quantity: int) -> Product:
         """บันทึกการรับสินค้าเข้าสต็อก และแจ้งเตือนสถานะเมื่ออัปเดต"""
