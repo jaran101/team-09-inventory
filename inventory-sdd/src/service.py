@@ -140,9 +140,8 @@ class InventoryService:
     
     def low_stock_items(self, threshold: int) -> list[str]:
         """คืนค่ารายชื่อสินค้าที่มีจำนวนคงเหลือน้อยกว่าหรือเท่ากับ threshold โดยเรียงลำดับตามชื่อสินค้า (Alphabetical Order)"""
-        matching_products = [
-            product.name
-            for product in self.products.values()
-            if product.quantity <= threshold
+        low_stock = [
+            p.name for p in self.products.values() 
+            if p.quantity <= threshold
         ]
-        return sorted(matching_products)
+        return sorted(low_stock)
