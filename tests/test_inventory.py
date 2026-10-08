@@ -1,22 +1,7 @@
-import sys
-from pathlib import Path
-
-# โฟลเดอร์ tests
-CURRENT_DIR = Path(__file__).resolve().parent
-
-# โฟลเดอร์ team-09-inventory
-PROJECT_ROOT = CURRENT_DIR.parent
-
-# โฟลเดอร์ inventory-sdd
-INVENTORY_SDD_DIR = PROJECT_ROOT / "inventory-sdd"
-
-# เพิ่ม inventory-sdd เข้า Python path
-sys.path.insert(0, str(INVENTORY_SDD_DIR))
-
 import pytest
-
 from src.models import Category, Product
 from src.service import InventoryService
+
 
 @pytest.fixture
 def service():

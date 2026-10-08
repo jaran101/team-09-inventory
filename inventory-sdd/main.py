@@ -1,5 +1,5 @@
 import sys
-from typing import Callable
+from collections.abc import Callable
 
 from src.models import Category, Product
 from src.notifiers import NotifierFactory
