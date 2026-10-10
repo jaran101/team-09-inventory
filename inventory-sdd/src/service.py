@@ -3,7 +3,7 @@ import re
 import threading
 import uuid
 from decimal import Decimal
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from .models import Category, Product, StockTransaction, TransactionType, _is_int
 from .notifiers import Notifier
@@ -21,12 +21,12 @@ class InventoryService:
     ธุรกรรมหรือ notifier ตัวอื่น
     """
 
-    def __init__(self, notifiers: Optional[List[Notifier]] = None) -> None:
+    def __init__(self, notifiers: list[Notifier] | None = None) -> None:
         """กำหนดค่าเริ่มต้นสำหรับบริการคลังสินค้าพร้อมรองรับ Dependency Injection"""
-        self.products: Dict[str, Product] = {}
-        self.categories: Dict[str, Category] = {}
-        self.transactions: List[StockTransaction] = []
-        self.notifiers: List[Notifier] = list(notifiers) if notifiers is not None else []
+        self.products: dict[str, Product] = {}
+        self.categories: dict[str, Category] = {}
+        self.transactions: list[StockTransaction] = []
+        self.notifiers: list[Notifier] = list(notifiers) if notifiers is not None else []
         self._lock = threading.RLock()
 
     def add_category(self, category: Category) -> None:
@@ -43,12 +43,12 @@ class InventoryService:
                 raise ValueError("ไม่พบหมวดหมู่สินค้าในระบบ กรุณาเพิ่มหมวดหมู่ก่อน")
             self.products[product.id] = product
 
-    def list_products(self) -> List[Product]:
+    def list_products(self) -> list[Product]:
         """คืนรายการสินค้าทั้งหมด (สำเนาของ list)"""
         with self._lock:
             return list(self.products.values())
 
-    def _notify_all(self, messages: List[str]) -> None:
+    def _notify_all(self, messages: list[str]) -> None:
         """ส่งข้อความไปยังทุกช่องทาง โดย notifier ที่ล้มเหลวจะถูก log และข้ามไป"""
         for message in messages:
             for notifier in list(self.notifiers):
@@ -92,7 +92,7 @@ class InventoryService:
         - เดิมไม่ต่ำและยังไม่ต่ำ -> ไม่แจ้ง
         """
         self._check_quantity(quantity, "รับเข้า")
-        messages: List[str] = []
+        messages: list[str] = []
         with self._lock:
             product = self._get(product_id)
             was_low = product.quantity < product.threshold
@@ -112,8 +112,8 @@ class InventoryService:
     def issue_stock(self, product_id: str, quantity: int) -> Product:
         """บันทึกการจ่ายสินค้าออก (ตรวจสต็อกก่อนจ่าย และแจ้งเตือนตามเงื่อนไข)"""
         self._check_quantity(quantity, "จ่ายออก")
-        messages: List[str] = []
-        error: Optional[str] = None
+        messages: list[str] = []
+        error: str | None = None
         with self._lock:
             product = self._get(product_id)
             if product.quantity == 0:
@@ -169,18 +169,20 @@ class InventoryService:
         self._notify_all([message])
         return product
 
-    def get_stock_value_by_category(self) -> Dict[str, Decimal]:
+    def get_stock_value_by_category(self) -> dict[str, Decimal]:
         """รายงานมูลค่ารวมของสต็อกแยกตามชื่อหมวดหมู่"""
-        values: Dict[str, Decimal] = {}
+        values: dict[str, Decimal] = {}
         with self._lock:
             for product in self.products.values():
                 name = product.category.name
-                values[name] = values.get(name, Decimal(0)) + product.quantity * product.price_per_unit
+                values[name] = (
+                    values.get(name, Decimal(0)) + product.quantity * product.price_per_unit
+                )
         return values
 
 
     def low_stock_items(self, threshold: int) -> list[str]:
-        """คืนค่ารายชื่อสินค้าที่มีจำนวนคงเหลือน้อยกว่าหรือเท่ากับ threshold โดยเรียงลำดับตามชื่อสินค้า (Alphabetical Order)"""
+        """คืนรายชื่อสินค้าที่มีจำนวนไม่เกิน threshold เรียงตามชื่อสินค้า"""
         low_stock = [
             p.name for p in self.products.values() 
             if p.quantity <= threshold

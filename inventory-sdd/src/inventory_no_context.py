@@ -1,6 +1,7 @@
-from dataclasses import dataclass
-from typing import List, Dict, Protocol
 import threading
+from dataclasses import dataclass
+from typing import Protocol
+
 
 # -------------------------------------------------------------------
 # Design Notes & NFR-02: Pattern สำหรับการแจ้งเตือน (Observer/Notifier)
@@ -36,8 +37,8 @@ class Product:
 # -------------------------------------------------------------------
 class InventoryManager:
     def __init__(self):
-        self._products: Dict[str, Product] = {}
-        self._notifiers: List[NotificationService] = []
+        self._products: dict[str, Product] = {}
+        self._notifiers: list[NotificationService] = []
         # NFR-03: Thread Lock สำหรับป้องกัน Data Corruption เมื่อแก้ไขพร้อมกัน
         self._lock = threading.Lock()
 
@@ -93,7 +94,10 @@ class InventoryManager:
 
             # AC US-02: แจ้งเตือนเมื่อสต็อกหลังจ่ายต่ำกว่า threshold
             if product.stock < product.threshold:
-                self._notify(f"สต็อกต่ำกว่า threshold: สินค้า '{product.name}' เหลือ {product.stock} (Threshold: {product.threshold})")
+                self._notify(
+                    f"สต็อกต่ำกว่า threshold: สินค้า '{product.name}' เหลือ {product.stock} "
+                    f"(Threshold: {product.threshold})"
+                )
 
     # --- US-04: กำหนดและแก้ไขค่า Threshold ---
     def update_threshold(self, product_id: str, new_threshold: int) -> None:
@@ -114,12 +118,15 @@ class InventoryManager:
 
             # AC US-04: กรณีแก้ไข threshold แล้วสต็อกปัจจุบันต่ำกว่า threshold ใหม่
             if product.stock < product.threshold:
-                self._notify(f"สินค้าในสต็อกต่ำ: '{product.name}' เหลือ {product.stock} (Threshold: {product.threshold})")
+                self._notify(
+                    f"สินค้าในสต็อกต่ำ: '{product.name}' เหลือ {product.stock} "
+                    f"(Threshold: {product.threshold})"
+                )
 
     # --- US-03 & NFR-01: รายงานมูลค่าสต็อกแยกตามหมวดหมู่ ---
-    def get_stock_value_by_category(self) -> Dict[str, float]:
+    def get_stock_value_by_category(self) -> dict[str, float]:
         """ประมวลผลมูลค่าสต็อกแยกตามหมวดหมู่"""
-        report: Dict[str, float] = {}
+        report: dict[str, float] = {}
         with self._lock:
             for product in self._products.values():
                 value = product.stock * product.price_per_unit
@@ -163,4 +170,5 @@ if __name__ == "__main__":
     except ValueError as e:
         print(f"Error จับได้ถูกต้อง: {e}")
 
-    inv.update_threshold("P001", 60) # แก้ threshold เป็น 60 (สต็อกมี 50) -> แจ้งเตือนเปลี่ยนค่า + แจ้งเตือนสต็อกต่ำ
+    # แก้ threshold เป็น 60 (สต็อกมี 50) เพื่อทดสอบการแจ้งเตือนทั้งสองรายการ
+    inv.update_threshold("P001", 60)

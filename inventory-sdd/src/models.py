@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from decimal import Decimal, InvalidOperation
 from enum import Enum
-from typing import Any, Optional, Union
+from typing import Any
 
 
 class TransactionType(Enum):
@@ -41,7 +41,7 @@ class Product:
     id: str
     name: str
     category: Category
-    price_per_unit: Union[Decimal, float, int, str]
+    price_per_unit: Decimal | float | int | str
     quantity: int = 0
     threshold: int = 1
 
@@ -86,7 +86,7 @@ class StockTransaction:
     transaction_type: TransactionType
     quantity: int
     timestamp: datetime = field(default_factory=datetime.now)
-    note: Optional[str] = None
+    note: str | None = None
 
     def __post_init__(self) -> None:
         """ตรวจสอบความถูกต้องของประวัติรายการสต็อก"""

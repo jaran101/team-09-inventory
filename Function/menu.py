@@ -3,6 +3,7 @@
 from insertfunction import InventoryManager
 from list import display_all_products
 
+
 def main():
     manager = InventoryManager()
     ADMIN_PASSWORD = "admin"
