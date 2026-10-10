@@ -7,3 +7,6 @@ select = ["E", "F", "I", "UP"]
 
 [tool.coverage.run]
 omit = ["tests/*", "pricing_legacy.py"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
